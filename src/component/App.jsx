@@ -5,6 +5,12 @@ import Table from './Table';
 import { Modal, List, Button, Toast } from 'antd-mobile';
 const playerName = createRef();
 
+const playerData = {
+    goal: createRef(),
+    assist: createRef(),
+    name: createRef()
+};
+
 const handleSubmit = async (fn) => {
 
     const name = playerName.current.value;
@@ -36,7 +42,7 @@ const handleRemove = async fn => {
     fetchList(fn.setDataList);
 };
 
-const dialog = (fn, visible) => {
+const playerResigterDialog = (fn, visible) => {
 
     return <Modal
         popup
@@ -59,6 +65,49 @@ const dialog = (fn, visible) => {
     </Modal>;
 };
 
+const handleModify = async (fn) => {
+
+    const goal = playerData.goal.current.value;
+    const assist = playerData.assist.current.value;
+    const name = playerData.name.current.value;
+    const res = await axios.post('updatePlayer.json', {
+        goal, assist, name
+    });
+    if(res.code === 500) {
+        Toast.info('已存在', 1.5);
+    } else {
+        Toast.hide();
+    }
+    fn.setUpdateInfoVisible(false);
+    fetchList(fn.setDataList);
+};
+
+const updatePlayerDataDialog = (fn, visible, player) => {
+    let list = [
+        {name: '姓名', code: 'name'},
+        {name: '进球', code: 'goal'},
+        {name: '助攻', code: 'assist'},
+    ];
+    return <Modal
+        popup
+        visible={visible}
+        onClose={() => fn.setUpdateInfoVisible(false)}
+        animationType="slide-up"
+    >
+        <List renderHeader={() => <div>数据修改</div>} className="popup-list">
+            {list.map((i, index) => (
+                <List.Item key={index}>
+                    <span>{i.name}</span>
+                    <input className={'name'} ref={playerData[i.code]} defaultValue={player[i.code]=== 0 ? '' : player[i.code]} disabled={i.code === 'name'}/>
+                </List.Item>
+            ))}
+            <List.Item>
+                <Button type="primary" className={'add-btn'} onClick={() => handleModify(fn)}>修改</Button>
+            </List.Item>
+        </List>
+    </Modal>;
+};
+
 const showDialog = async (fn) => {
     fn.setVisible(true);
 };
@@ -69,25 +118,33 @@ const fetchList = async (setDataList) => {
     setDataList(res.data);
 };
 
+const triggerUpdatePlayer = async (fn, data) => {
+    fn.setUpdateInfoVisible(true);
+    fn.setUpdatePlayer(data);
+};
+
 const App = () => {
     const year = new Date().getFullYear();
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false); // 注册球员对话框
+    const [updateInfoVisible, setUpdateInfoVisible] = useState(false); // 修改球员信息对话框
+    const [updatePlayer, setUpdatePlayer] = useState(false); // 需要修改的球员信息
     const [dataList, setDataList] = useState([]);
 
-    const fn = { setVisible, setDataList };
+    const fn = { setVisible, setDataList, setUpdateInfoVisible, setUpdatePlayer };
     useEffect(() => {
         fetchList(setDataList);
     }, []);
 
     return <div>
-        {dialog(fn, visible)}
+        {playerResigterDialog(fn, visible)}
+        {updatePlayerDataDialog(fn, updateInfoVisible, updatePlayer)}
         <div className="header">
             <img className="logo" src="public/img/bundesliga_logo.png"/>
             <span className={'text'}>{`养生堂 ${year} 赛季`}</span>
             <div className={'add-player'} onClick={() => showDialog(fn)}>+</div>
         </div>
         <div>
-            <Table dataList={dataList}/>
+            <Table dataList={dataList} updatePlayer={(player) => triggerUpdatePlayer(fn, player)}/>
         </div>
     </div>;
 };
