@@ -45,15 +45,15 @@ const dialog = (fn, visible) => {
         animationType="slide-up"
     >
         <List renderHeader={() => <div>球员录入</div>} className="popup-list">
-            {['姓名',].map((i, index) => (
+            {['姓名：',].map((i, index) => (
                 <List.Item key={index}>
                     <span>{i}</span>
-                    <input name={'playerName'} ref={playerName}/>
+                    <input className={'name'} ref={playerName}/>
                 </List.Item>
             ))}
             <List.Item>
-                <Button type="primary" onClick={() => handleSubmit(fn)}>添加</Button>
-                <Button type="primary" onClick={() => handleRemove(fn)}>移除</Button>
+                <Button type="primary" className={'add-btn'} onClick={() => handleSubmit(fn)}>添加</Button>
+                <Button type="primary" className={'remove-btn'} onClick={() => handleRemove(fn)}>移除</Button>
             </List.Item>
         </List>
     </Modal>;
