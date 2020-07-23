@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
-import axios from '../common/axios';
-
+import axios from '../../common/axios';
+import {getUrlParams} from '@bbb324/tools';
 import Table from './Table';
 import { Modal, List, Button, Toast } from 'antd-mobile';
+const param = getUrlParams();
 const playerName = createRef();
+const hideAction = param.isReadonly === '1'; 
 
 const playerData = {
     goal: createRef(),
@@ -138,7 +140,7 @@ const App = () => {
     const [updateInfoVisible, setUpdateInfoVisible] = useState(false); // 修改球员信息对话框
     const [updatePlayer, setUpdatePlayer] = useState(false); // 需要修改的球员信息
     const [dataList, setDataList] = useState([]);
-
+    console.log(111);
     const fn = { setVisible, setDataList, setUpdateInfoVisible, setUpdatePlayer };
     useEffect(() => {
         fetchList(setDataList);
@@ -150,10 +152,11 @@ const App = () => {
         <div className="header">
             <img className="logo" src="public/img/bundesliga_logo.png"/>
             <span className={'text'}>{`养生堂 ${year} 赛季`}</span>
-            <div className={'add-player'} onClick={() => showDialog(fn)}>+</div>
+            {hideAction ? null : <div className={'add-player'} onClick={() => showDialog(fn)}>+</div>}
         </div>
         <div>
             <Table dataList={dataList} 
+                hideAction={hideAction}
                 updatePlayer={(player) => triggerUpdatePlayer(fn, player)}
                 deletePlayer={player => triggerDeletePlayer(fn, player)}
             />

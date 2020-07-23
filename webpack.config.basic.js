@@ -9,10 +9,15 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 module.exports = {
-    entry: ['babel-polyfill', './src/index.jsx'],
+    //entry: ['babel-polyfill', './src/index.jsx'],
+    entry: {
+        'babel-polyfill': ['babel-polyfill'],
+        goal: './src/goal/index.jsx',
+        login: './src/login/index.jsx'
+    },
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
     devtool: 'source-map',
     optimization: {

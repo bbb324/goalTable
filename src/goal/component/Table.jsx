@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Modal, List, Button, WhiteSpace, WingBlank, Icon } from 'antd-mobile';
-import axios from '../common/axios';
+import axios from '../../common/axios';
 
 
 const renderTheader = () => {
@@ -20,10 +20,11 @@ const renderTable = (props, dataList) => {
             <div className={'item item-name'}>{item.name}</div>
             <div className={'item item-goal'}>{item.goal}</div>
             <div className={'item item-assist'}>{item.assist}</div>
-            <div className={'item item-modify'}>
+            {props.hideAction ? null :<div className={'item item-modify'}>
                 <span onClick={() => props.updatePlayer(item)}>{'修改'}</span>    
                 <span className={'delete'} onClick={() => props.deletePlayer(item)}>{'删除'}</span>    
-            </div>
+            </div>}
+            
             
         </div>;
     });

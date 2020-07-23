@@ -22,7 +22,8 @@
     "react-dom": "16.x",
     "react-grid-system": "^7.0.3",
     "react-md-file": "^2.0.0",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "@bbb324/tools": "^1.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
