@@ -29,8 +29,9 @@ const handleSubmit = async (fn) => {
 
 };
 
-const handleRemove = async fn => {
-    const name = playerName.current.value;
+const handleRemove = async (fn, data) => {
+
+    const name = data ? data : playerName.current.value;
     Toast.loading('Loading...', 5);
     const res = axios.post('playerRemove.json', {name});
     if(res.code === 500) {
@@ -59,7 +60,6 @@ const playerResigterDialog = (fn, visible) => {
             ))}
             <List.Item>
                 <Button type="primary" className={'add-btn'} onClick={() => handleSubmit(fn)}>添加</Button>
-                <Button type="primary" className={'remove-btn'} onClick={() => handleRemove(fn)}>移除</Button>
             </List.Item>
         </List>
     </Modal>;
@@ -70,6 +70,10 @@ const handleModify = async (fn) => {
     const goal = playerData.goal.current.value;
     const assist = playerData.assist.current.value;
     const name = playerData.name.current.value;
+    if(isNaN(+assist) || isNaN(+goal)) {
+        Toast.info('只能保存数字', 1.5);
+        return;
+    }
     const res = await axios.post('updatePlayer.json', {
         goal, assist, name
     });
@@ -123,6 +127,11 @@ const triggerUpdatePlayer = async (fn, data) => {
     fn.setUpdatePlayer(data);
 };
 
+const triggerDeletePlayer = async (fn, player) => {
+    
+    handleRemove(fn, player.name);
+};
+
 const App = () => {
     const year = new Date().getFullYear();
     const [visible, setVisible] = useState(false); // 注册球员对话框
@@ -144,10 +153,12 @@ const App = () => {
             <div className={'add-player'} onClick={() => showDialog(fn)}>+</div>
         </div>
         <div>
-            <Table dataList={dataList} updatePlayer={(player) => triggerUpdatePlayer(fn, player)}/>
+            <Table dataList={dataList} 
+                updatePlayer={(player) => triggerUpdatePlayer(fn, player)}
+                deletePlayer={player => triggerDeletePlayer(fn, player)}
+            />
         </div>
     </div>;
 };
 
 export default App;
-

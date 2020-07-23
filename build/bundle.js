@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "bce418cf807e2a3ebe22";
+/******/ 	var hotCurrentHash = "04df6bb8827efd95e09b";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -27403,7 +27403,7 @@ exports.push([module.i, "/*!\n * \n * antd-mobile v2.3.3\n * \n * Copyright 2015
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".header {\n  background-color: #D20414;\n  height: 40px;\n  line-height: 40px;\n  text-align: center;\n  position: relative;\n}\n.header .logo {\n  position: absolute;\n  width: 50px;\n  height: auto;\n  left: 20px;\n}\n.header .text {\n  color: #ffffff;\n  font-size: 20px;\n}\n.table-header {\n  margin-top: 10px;\n}\n.table-header .item {\n  display: inline-block;\n  width: 25%;\n  text-align: center;\n}\n.item-list {\n  margin-top: 25px;\n}\n.item-list .item {\n  display: inline-block;\n  width: 25%;\n  text-align: center;\n}\n.add-player {\n  width: 20px;\n  height: 20px;\n  border-radius: 100%;\n  border: 1px solid #ffffff;\n  position: absolute;\n  color: #ffffff;\n  right: 20px;\n  top: 50%;\n  transform: translateY(-50%);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.name {\n  width: 80%;\n  border: none;\n  border-bottom: 1px solid;\n  padding-left: 5px;\n}\n.remove-btn.am-button-primary {\n  margin-top: 10px;\n  background-color: #D20414;\n}\n.add-btn {\n  background-color: #D20414;\n}\n", ""]);
+exports.push([module.i, ".header {\n  background-color: #D20414;\n  height: 40px;\n  line-height: 40px;\n  text-align: center;\n  position: relative;\n}\n.header .logo {\n  position: absolute;\n  width: 50px;\n  height: auto;\n  left: 20px;\n}\n.header .text {\n  color: #ffffff;\n  font-size: 20px;\n}\n.table-header {\n  margin-top: 10px;\n}\n.table-header .item {\n  display: inline-block;\n  width: 25%;\n  text-align: center;\n}\n.item-list {\n  margin-top: 25px;\n}\n.item-list .item {\n  display: inline-block;\n  width: 25%;\n  text-align: center;\n}\n.item-list .item-modify {\n  color: #1047F5;\n}\n.item-list .delete {\n  margin-left: 10px;\n}\n.add-player {\n  width: 20px;\n  height: 20px;\n  border-radius: 100%;\n  border: 1px solid #ffffff;\n  position: absolute;\n  color: #ffffff;\n  right: 20px;\n  top: 50%;\n  transform: translateY(-50%);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.name {\n  width: 80%;\n  border: none;\n  border-bottom: 1px solid;\n  padding-left: 5px;\n}\n.remove-btn.am-button-primary {\n  margin-top: 10px;\n  background-color: #D20414;\n}\n.add-btn {\n  background-color: #D20414;\n}\n", ""]);
 
 
 
@@ -75489,13 +75489,13 @@ var handleSubmit = /*#__PURE__*/function () {
 }();
 
 var handleRemove = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(fn) {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(fn, data) {
     var name, res;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            name = playerName.current.value;
+            name = data ? data : playerName.current.value;
             antd_mobile__WEBPACK_IMPORTED_MODULE_3__["Toast"].loading('Loading...', 5);
             res = _common_axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('playerRemove.json', {
               name: name
@@ -75518,7 +75518,7 @@ var handleRemove = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function handleRemove(_x2) {
+  return function handleRemove(_x2, _x3) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -75549,13 +75549,7 @@ var playerResigterDialog = function playerResigterDialog(fn, visible) {
     onClick: function onClick() {
       return handleSubmit(fn);
     }
-  }, "\u6DFB\u52A0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd_mobile__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-    type: "primary",
-    className: 'remove-btn',
-    onClick: function onClick() {
-      return handleRemove(fn);
-    }
-  }, "\u79FB\u9664"))));
+  }, "\u6DFB\u52A0"))));
 };
 
 var handleModify = /*#__PURE__*/function () {
@@ -75568,14 +75562,24 @@ var handleModify = /*#__PURE__*/function () {
             goal = playerData.goal.current.value;
             assist = playerData.assist.current.value;
             name = playerData.name.current.value;
-            _context3.next = 5;
+
+            if (!(isNaN(+assist) || isNaN(+goal))) {
+              _context3.next = 6;
+              break;
+            }
+
+            antd_mobile__WEBPACK_IMPORTED_MODULE_3__["Toast"].info('只能保存数字', 1.5);
+            return _context3.abrupt("return");
+
+          case 6:
+            _context3.next = 8;
             return _common_axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('updatePlayer.json', {
               goal: goal,
               assist: assist,
               name: name
             });
 
-          case 5:
+          case 8:
             res = _context3.sent;
 
             if (res.code === 500) {
@@ -75587,7 +75591,7 @@ var handleModify = /*#__PURE__*/function () {
             fn.setUpdateInfoVisible(false);
             fetchList(fn.setDataList);
 
-          case 9:
+          case 12:
           case "end":
             return _context3.stop();
         }
@@ -75595,7 +75599,7 @@ var handleModify = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function handleModify(_x3) {
+  return function handleModify(_x4) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -75657,7 +75661,7 @@ var showDialog = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function showDialog(_x4) {
+  return function showDialog(_x5) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -75684,7 +75688,7 @@ var fetchList = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function fetchList(_x5) {
+  return function fetchList(_x6) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -75706,8 +75710,29 @@ var triggerUpdatePlayer = /*#__PURE__*/function () {
     }, _callee6);
   }));
 
-  return function triggerUpdatePlayer(_x6, _x7) {
+  return function triggerUpdatePlayer(_x7, _x8) {
     return _ref6.apply(this, arguments);
+  };
+}();
+
+var triggerDeletePlayer = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(fn, player) {
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            handleRemove(fn, player.name);
+
+          case 1:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function triggerDeletePlayer(_x9, _x10) {
+    return _ref7.apply(this, arguments);
   };
 }();
 
@@ -75762,6 +75787,9 @@ var App = function App() {
     dataList: dataList,
     updatePlayer: function updatePlayer(player) {
       return triggerUpdatePlayer(fn, player);
+    },
+    deletePlayer: function deletePlayer(player) {
+      return triggerDeletePlayer(fn, player);
     }
   })));
 };
@@ -75814,11 +75842,17 @@ var renderTable = function renderTable(props, dataList) {
     }, item.goal), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: 'item item-assist'
     }, item.assist), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: 'item item-assist',
+      className: 'item item-modify'
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       onClick: function onClick() {
         return props.updatePlayer(item);
       }
-    }, '修改'));
+    }, '修改'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: 'delete',
+      onClick: function onClick() {
+        return props.deletePlayer(item);
+      }
+    }, '删除')));
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, els);
 };
