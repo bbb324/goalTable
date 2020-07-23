@@ -27,6 +27,7 @@ const App = () => {
                 <input type='submit' className='login' value='submit' />
             </div>
         </form>
+        <a href={'/yst.htm?isReadonly=1'}>浏览进入</a>
     </div>);
 };
 

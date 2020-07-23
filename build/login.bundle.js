@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "646306549105bd55e7fd";
+/******/ 	var hotCurrentHash = "ed734d83a253f4f98a86";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -30114,7 +30114,9 @@ var App = function App() {
     type: "submit",
     className: "login",
     value: "submit"
-  }))));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: '/yst.htm?isReadonly=1'
+  }, "\u6D4F\u89C8\u8FDB\u5165"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
