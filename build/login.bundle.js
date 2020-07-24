@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "ed734d83a253f4f98a86";
+/******/ 	var hotCurrentHash = "fc1dedaabc1c618bb683";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -938,7 +938,7 @@ exports.push([module.i, "/*!\n * \n * antd-mobile v2.3.3\n * \n * Copyright 2015
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".login-page .title {\n  width: 100%;\n  margin-top: 40%;\n  font-size: 32px;\n  text-align: center;\n  margin-bottom: 20px;\n}\n.login-page .area {\n  margin: 10px 0;\n  text-align: center;\n  font-size: 18px;\n}\n.login-page .area label {\n  margin-right: 10px;\n}\n.login-page .login {\n  background-color: #1047F5;\n  color: white;\n  padding: 10px 20px;\n  width: 60%;\n  margin: 20px auto 0 auto;\n  border-radius: 8px;\n  text-align: center;\n}\n.login-page .login-area {\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, ".login-page .title {\n  width: 100%;\n  margin-top: 40%;\n  font-size: 32px;\n  text-align: center;\n  margin-bottom: 20px;\n}\n.login-page .area {\n  margin: 10px 0;\n  text-align: center;\n  font-size: 18px;\n}\n.login-page .area label {\n  margin-right: 10px;\n}\n.login-page .login {\n  background-color: #1047F5;\n  color: white;\n  padding: 10px 20px;\n  width: 60%;\n  margin: 20px auto 0 auto;\n  border-radius: 8px;\n  text-align: center;\n}\n.login-page .login-area {\n  text-align: center;\n}\n.login-page .viewer {\n  margin-top: 20px;\n  display: block;\n  font-size: 20px;\n  text-align: center;\n  text-decoration: underline;\n}\n", ""]);
 
 
 
@@ -30115,7 +30115,8 @@ var App = function App() {
     className: "login",
     value: "submit"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: '/yst.htm?isReadonly=1'
+    href: '/yst.htm?isReadonly=1',
+    className: "viewer"
   }, "\u6D4F\u89C8\u8FDB\u5165"));
 };
 

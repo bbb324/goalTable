@@ -140,7 +140,7 @@ const App = () => {
     const [updateInfoVisible, setUpdateInfoVisible] = useState(false); // 修改球员信息对话框
     const [updatePlayer, setUpdatePlayer] = useState(false); // 需要修改的球员信息
     const [dataList, setDataList] = useState([]);
-    console.log(111);
+    
     const fn = { setVisible, setDataList, setUpdateInfoVisible, setUpdatePlayer };
     useEffect(() => {
         fetchList(setDataList);
