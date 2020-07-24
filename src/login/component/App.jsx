@@ -14,7 +14,7 @@ const csrf = window.document.querySelector('meta[name="_csrf_token"]').getAttrib
 const App = () => {
     return (<div className="login-page">
         <div className='title'>养生堂后台管理系统</div>
-        <form action={`/passport/login?_csrf=${csrf}`} method="post">
+        <form action={`/passport/login?_csrf=${csrf}`} method="get">
             <div className='area'>
                 <label>账户：</label>
                 <input type="text" id="usernameField" name="username" />
