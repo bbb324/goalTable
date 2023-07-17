@@ -3,21 +3,21 @@ module.exports = {
     parserOptions: {
         sourceType: 'module',
         ecmaFeatures: {
-            "jsx": true
+            'jsx': true
         }
     },
     env: {
         browser: true,
     },
     rules: {
-        "indent": ["error", 4],
-        "quotes": ["error", "single"],
-        "semi": ["error", "always"],
-        "no-console": "error",
-        "arrow-parens": 0
+        'indent': ['error', 4],
+        'quotes': ['error', 'single'],
+        'semi': ['error', 'always'],
+        'no-console': 'error',
+        'arrow-parens': 0
     },
-    parser: "babel-eslint",
+    parser: 'babel-eslint',
     plugins: [
-        "react"
+        'react'
     ],
 };
